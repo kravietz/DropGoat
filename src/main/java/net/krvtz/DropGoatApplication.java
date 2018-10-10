@@ -6,6 +6,7 @@ import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
 import net.krvtz.resources.*;
 
 public class DropGoatApplication extends Application<DropGoatConfiguration> {
@@ -17,6 +18,7 @@ public class DropGoatApplication extends Application<DropGoatConfiguration> {
     @Override
     public void initialize(final Bootstrap<DropGoatConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle());
+        bootstrap.addBundle(new ViewBundle());
     }
 
     public void run(DropGoatConfiguration dropGoatConfiguration, Environment environment) throws Exception {
@@ -27,5 +29,6 @@ public class DropGoatApplication extends Application<DropGoatConfiguration> {
 
         environment.jersey().register(new TagEncoderResource());
         environment.jersey().register(new AttrEncoderResource());
+        environment.jersey().register(new TagEscapeResource());
     }
 }

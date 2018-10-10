@@ -8,15 +8,16 @@
 <h1>DropGoat</h1>
 <h2>Vulnerable endpoints</h2>
 <ul>
-    <li><a href="/app/tag-xss">HTML tag XSS</a></li>
-    <li><a href="/app/attr-xss">HTML attribute XSS</a></li>
-    <li><a href="/app/js-xss">JavaScript XSS</a></li>
+    <li><a href="/app/tag-xss?input=<script>alert(1)</script>">HTML tag XSS</a></li>
+    <li><a href="/app/attr-xss?input=<script>alert(1)</script>">HTML attribute XSS</a></li>
+    <li><a href="/app/js-xss?input=<script>alert(1)</script>">JavaScript XSS</a></li>
     <li><a href="/app/xml-parser">XML parser</a></li>
 </ul>
 <h2>Fixed endpoints</h2>
 <ul>
-    <li><a href="/app/tag-enc">HTML tag encoded</a></li>
-    <li><a href="/app/attr-enc">HTML attribute encoded</a></li>
+    <li><a href="/app/tag-enc?input=<script>alert(1)</script>">HTML tag encoded</a></li>
+    <li><a href="/app/attr-enc?input=<script>alert(1)</script>">HTML attribute encoded</a></li>
+    <li><a href="/app/tag-escape?input=<script>alert(1)</script>">HTML attribute encoded</a></li>
 </ul>
 </body>
 </html>
