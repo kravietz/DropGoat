@@ -71,8 +71,8 @@ public class XmlResource {
                 + "</pre></div>" +
                 "<div><form><input name=input></form></div>" +
 
-                "<div><a href=\"?input=" + URLEncoder.encode(EXPLOIT, StandardCharsets.UTF_8) + "\">exploit</a></div>" +
-                "<div><a href=\"?input=" + URLEncoder.encode(DEMO, StandardCharsets.UTF_8) + "\">demo</a></div>" +
+                "<div><a href=\"?input=" + URLEncoder.encode(EXPLOIT, "UTF-8") + "\">exploit</a></div>" +
+                "<div><a href=\"?input=" + URLEncoder.encode(DEMO, "UTF-8") + "\">demo</a></div>" +
 
                 "</body></html>";
         return Response.ok(response).encoding("utf-8").build();
