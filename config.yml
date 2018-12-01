@@ -7,7 +7,7 @@ server:
   applicationContextPath: /app
   connector:
     type: http
-    port: 8080
+    port: 8888
 #database:
 #  url: 'jdbc:h2:mem:drop-goat'
 #  driverClass: "org.h2.Driver"
