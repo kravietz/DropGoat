@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 public class TagEscapeResource {
 
     @GET
+    // Freemarker templates are handled through Views in DropWizard
     public EscapeView handle(@QueryParam("input") String input) {
         return new EscapeView(input);
     }
