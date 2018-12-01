@@ -8,16 +8,16 @@
 <h1>DropGoat</h1>
 <h2>Vulnerable endpoints</h2>
 <ul>
-    <li><a href="/app/tag-xss?input=<script>alert(1)</script>">HTML tag XSS</a></li>
-    <li><a href="/app/attr-xss?input=<script>alert(1)</script>">HTML attribute XSS</a></li>
-    <li><a href="/app/js-xss?input=<script>alert(1)</script>">JavaScript XSS</a></li>
-    <li><a href="/app/xml-parser">XML parser</a></li>
+    <li>XSS in unprotected <a href="/app/tag-xss?input=<script>alert(1)</script>">HTML tag content</a></li>
+    <li>XSS in unprotected <a href="/app/attr-xss?input=<script>alert(1)</script>">HTML attribute</a></li>
+    <li>XSS in unprotected  <a href="/app/js-xss?input=<script>alert(1)</script>">JavaScript code</a></li>
+    <li>XXE in <a href="/app/xml-parser?input=%3C%3Fxml%2520version%3D%221.0%22+encoding%3D%22ascii%22%3F%3E%3C%21DOCTYPE+foo+%5B%3C%21ELEMENT+foo+ANY+%3E%5D%3E%3Cfoo%3Edemo%3C%2Ffoo%3E">XML parser</a></li>
 </ul>
 <h2>Fixed endpoints</h2>
 <ul>
-    <li><a href="/app/tag-enc?input=<script>alert(1)</script>">HTML tag encoded</a></li>
-    <li><a href="/app/attr-enc?input=<script>alert(1)</script>">HTML attribute encoded</a></li>
-    <li><a href="/app/tag-escape?input=<script>alert(1)</script>">HTML attribute encoded</a></li>
+    <li>XSS in <a href="/app/tag-enc?input=<script>alert(1)</script>">HTML tag content</a> escaped by owasp.Encode</li>
+    <li>XSS in <a href="/app/attr-enc?input=<script>alert(1)</script>">HTML attribute</a>  escaped by owasp.Encode<</li>
+    <li>XSS in <a href="/app/tag-escape?input=<script>alert(1)</script>">HTML tag content</a> auto-escaped by Freemarker template</li>
 </ul>
 </body>
 </html>
