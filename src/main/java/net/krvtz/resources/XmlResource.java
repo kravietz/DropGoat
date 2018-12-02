@@ -41,7 +41,7 @@ public class XmlResource {
             "</foo>";
 
     @GET
-    public Response handle(@QueryParam("input") String input) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+    public Response handle(@QueryParam("input") String input) throws ParserConfigurationException, IOException, TransformerException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         // disable built-in DocumentBuilderFactory safeguards
         // NEVER do this in production code
@@ -50,8 +50,15 @@ public class XmlResource {
         dbf.setXIncludeAware(true);
         dbf.setExpandEntityReferences(true);
 
+        System.out.println("input=" + input);
+
         DocumentBuilder db = dbf.newDocumentBuilder();
-        Document doc = db.parse(new InputSource(new StringReader(input)));
+        Document doc = null;
+        try {
+            doc = db.parse(new InputSource(new StringReader(input)));
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
@@ -65,7 +72,7 @@ public class XmlResource {
 
         System.out.println("DOC=" + stringWriter.toString());
 
-        String response = "<html><head><title>" + MODULE + "</title></head>" +
+        @SuppressWarnings("UnstableApiUsage") String response = "<html><head><title>" + MODULE + "</title></head>" +
                 "<body><h1>" + MODULE + "</h1><div><pre>" +
                 HtmlEscapers.htmlEscaper().escape(stringWriter.toString())
                 + "</pre></div>" +
