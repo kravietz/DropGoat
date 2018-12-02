@@ -17,11 +17,12 @@ public class DropGoatApplication extends Application<DropGoatConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<DropGoatConfiguration> bootstrap) {
+        // with default configuration this will be available at http://localhost:8888/app/assets/index.html
         bootstrap.addBundle(new AssetsBundle());
-        bootstrap.addBundle(new ViewBundle());
+        bootstrap.addBundle(new ViewBundle<io.dropwizard.Configuration>());
     }
 
-    public void run(DropGoatConfiguration dropGoatConfiguration, Environment environment) throws Exception {
+    public void run(DropGoatConfiguration dropGoatConfiguration, Environment environment) {
         environment.jersey().register(new TagXssResource());
         environment.jersey().register(new AttrXssResource());
         environment.jersey().register(new JsXssResource());
