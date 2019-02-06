@@ -21,18 +21,13 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 @Path("/xml-parser")
-@Produces(MediaType.TEXT_HTML)
+@Produces(MediaType.APPLICATION_XML)
 @Consumes(MediaType.APPLICATION_XML)
 public class XmlResource {
 
     private static final String MODULE = "XmlResource";
     private static final String FEATURE_GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
     private static final String FEATURE_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
-    private static final String DEMO = "<?xml version=\"1.0\" encoding=\"ascii\"?><!DOCTYPE foo [<!ELEMENT foo ANY >]><foo>demo</foo>";
-
-    private static final String EXPLOIT = "<?xml version=\"1.0\"?>\n" +
-            "<!DOCTYPE name [<!ENTITY x SYSTEM \"file:///etc/passwd\">]>\n" +
-            "<name>&x;</name>";
 
     @GET
     public Response handle(@QueryParam("input") String input) throws ParserConfigurationException, IOException, TransformerException {
@@ -64,18 +59,10 @@ public class XmlResource {
         StringWriter stringWriter = new StringWriter();
         transformer.transform(new DOMSource(doc), new StreamResult(stringWriter));
 
-        System.out.println("DOC=" + stringWriter.toString());
+        System.out.println("parsed=" + stringWriter.toString());
 
-        @SuppressWarnings("UnstableApiUsage") String response = "<html><head><title>" + MODULE + "</title></head>" +
-                "<body><h1>" + MODULE + "</h1><div><pre>" +
-                HtmlEscapers.htmlEscaper().escape(stringWriter.toString())
-                + "</pre></div>" +
-                "<div><form><input name=input></form></div>" +
+        String response = stringWriter.toString();
 
-                "<div><a href=\"?input=" + URLEncoder.encode(EXPLOIT, "UTF-8") + "\">exploit</a></div>" +
-                "<div><a href=\"?input=" + URLEncoder.encode(DEMO, "UTF-8") + "\">demo</a></div>" +
-
-                "</body></html>";
-        return Response.ok(response).encoding("utf-8").build();
+        return Response.ok(response).type(MediaType.TEXT_XML).encoding("utf-8").build();
     }
 }

@@ -3,21 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>DropGoat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>DropGoat</h1>
-<h2>Vulnerable endpoints</h2>
-<ul>
-    <li>XSS in unprotected <a href="/app/tag-xss?input=<script>alert(1)</script>">HTML tag content</a></li>
-    <li>XSS in unprotected <a href="/app/attr-xss?input=<script>alert(1)</script>">HTML attribute</a></li>
-    <li>XSS in unprotected  <a href="/app/js-xss?input=<script>alert(1)</script>">JavaScript code</a></li>
-    <li>XXE in <a href="/app/xml-parser?input=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3C%21DOCTYPE+name+%5B%3C%21ENTITY+x+SYSTEM+%22file%3A%2F%2F%2Fetc%2Fpasswd%22%3E%5D%3E%0A%3Cname%3E%26x%3B%3C%2Fname%3E">XML parser</a></li>
-</ul>
-<h2>Fixed endpoints</h2>
-<ul>
-    <li>XSS in <a href="/app/tag-enc?input=<script>alert(1)</script>">HTML tag content</a> escaped by owasp.Encode</li>
-    <li>XSS in <a href="/app/attr-enc?input=<script>alert(1)</script>">HTML attribute</a>  escaped by owasp.Encode</li>
-    <li>XSS in <a href="/app/tag-escape?input=<script>alert(1)</script>">HTML tag content</a> auto-escaped by Freemarker template</li>
-</ul>
+<main class="container" role="main">
+    <div class="jumbotron">
+    <h1 class="display-3">DropGoat</h1>
+        <p>DropGoat is an intentionally vulnerable web application
+        using DropWizard framework for Java.</p>
+        <p><a class="btn btn-primary" href="https://github.com/kravietz/DropGoat">GitHub</a></p>
+    </div>
+    <h2>Vulnerable endpoints</h2>
+    <ul>
+        <li>XSS in unprotected <a href="/app/tag-xss?input=<script>alert(1)</script>">HTML tag content</a></li>
+        <li>XSS in unprotected <a href="/app/attr-xss?input=<script>alert(1)</script>">HTML attribute</a></li>
+        <li>XSS in unprotected <a href="/app/js-xss?input=<script>alert(1)</script>">JavaScript code</a></li>
+        <li>XXE in <a href="xxe.html">XML parser</a></li>
+    </ul>
+    <h2>Protected endpoints</h2>
+    <ul>
+        <li>XSS in <a href="/app/tag-enc?input=<script>alert(1)</script>">HTML tag content</a> escaped by owasp.Encode
+        </li>
+        <li>XSS in <a href="/app/attr-enc?input=<script>alert(1)</script>">HTML attribute</a> escaped by owasp.Encode
+        </li>
+        <li>XSS in <a href="/app/tag-escape?input=<script>alert(1)</script>">HTML tag content</a> auto-escaped by
+            Freemarker template
+        </li>
+    </ul>
+</main>
 </body>
 </html>

