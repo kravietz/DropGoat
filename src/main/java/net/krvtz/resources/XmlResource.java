@@ -8,6 +8,7 @@ import org.xml.sax.SAXException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,6 +37,8 @@ public class XmlResource {
         // NEVER do this in production code
         dbf.setFeature(FEATURE_GENERAL_ENTITIES, true);
         dbf.setFeature(FEATURE_PARAMETER_ENTITIES, true);
+        dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, false);
+        dbf.setValidating(true);
         dbf.setXIncludeAware(true);
         dbf.setExpandEntityReferences(true);
 
@@ -52,7 +55,7 @@ public class XmlResource {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
         // Return pretty print xml string
