@@ -7,7 +7,7 @@ public class EscapeView extends View {
     private final String content;
 
     public EscapeView(String content) {
-        super("/escape.ftl");
+        super("/escape.ftl.html");
         this.content = content;
     }
 
