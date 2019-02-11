@@ -7,6 +7,7 @@ import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
+import net.krvtz.filters.XssAuditorFilter;
 import net.krvtz.resources.*;
 
 public class DropGoatApplication extends Application<DropGoatConfiguration> {
@@ -31,5 +32,8 @@ public class DropGoatApplication extends Application<DropGoatConfiguration> {
         environment.jersey().register(new TagEncoderResource());
         environment.jersey().register(new AttrEncoderResource());
         environment.jersey().register(new TagEscapeResource());
+
+        environment.jersey().register(XssAuditorFilter.class);
+
     }
 }
