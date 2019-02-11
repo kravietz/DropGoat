@@ -8,17 +8,22 @@
 <body>
 
 <main class="container" role="main">
-    <h1>HTML tag XSS</h1>
+    <h1>JavaScript variable XSS</h1>
 
-    <p>This views is vulnerable to a classic XSS by injection into a HTML tag contents.</p>
+    <p>This views is vulnerable to a XSS by injection into a JavaScript variable.</p>
 
-    <!-- this sink has Freemarker auto-escaping explicitly disabled and should cause an XSS -->
-    <p>Input=<code>${content?no_esc}</code></p>
+    <div id="output">
+        This is where input text goes when XSS does not work
+    </div>
+
+    <p>
+        Input=<code>${content}</code>
+    </p>
 
     <form>
         <div class="form-group">
             <!-- this sink does not disable auto-escaping and should be safe -->
-            <input class="form-control" name=input placeholder="<script>alert(1)</script>" value="${content}">
+            <input class="form-control" name=input placeholder="%22><script>alert(1)</script>" value="${content}">
         </div>
         <input class="btn btn-primary" type="submit">
     </form>
@@ -29,10 +34,11 @@
         <div class="col">
             <h2>Sample XSS vectors</h2>
 
+            <p>We are injecting directly into JavaScript so simple <code>alert(1)</code> will work
+                once we escape the JavaScript variable context.</p>
+
             <pre>
-&lt;script&gt;alert(1)&lt;/script&gt;
-&lt;img src=x onerror=alert(1)&gt;
-&lt;video&gt;&lt;source onerror=&quot;alert(1)&quot;&gt;
+a"; alert(1);"
 </pre>
 
             <p>More exciting XSS vectors can be found on
@@ -40,6 +46,14 @@
         </div>
     </div>
 </div>
+
+<!-- this sink has Freemarker auto-escaping explicitly disabled and should cause an XSS -->
+<script>
+    // Trivial JavaScript to insert input into a div contents
+    var test = "${content?no_esc}";
+    document.getElementById("output").innerText = test;
+
+</script>
 
 <footer class="footer">
     <div class="container">
