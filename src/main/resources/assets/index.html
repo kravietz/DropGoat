@@ -18,16 +18,16 @@
     <ul>
         <li>XSS in unprotected <a href="/app/tag-xss?input=<script>alert(1)</script>">HTML tag content</a></li>
         <li>XSS in unprotected <a href="/app/attr-xss?input=%22><script>alert(1)</script>">HTML attribute</a></li>
-        <li>XSS in unprotected <a href="/app/js-xss?input=%22;alert(1);%20var%20x=%22a">JavaScript code</a></li>
+        <li>XSS in unprotected <a href="/app/js-xss?input=dummy%22;alert(1);%20var%20x=%22a">JavaScript code</a></li>
         <li>XXE in <a href="xxe.html">XML parser</a></li>
     </ul>
     <h2>Protected endpoints</h2>
     <ul>
-        <li>XSS in <a href="/app/tag-enc?input=<script>alert(1)</script>">HTML tag content</a> escaped by owasp.Encode
+        <li>Non-exploitable XSS in <a href="/app/tag-enc?input=<script>alert(1)</script>">HTML tag content</a> escaped by owasp.Encode
         </li>
-        <li>XSS in <a href="/app/attr-enc?input=<script>alert(1)</script>">HTML attribute</a> escaped by owasp.Encode
+        <li>Non-exploitable XSS in <a href="/app/attr-enc?input=<script>alert(1)</script>">HTML attribute</a> escaped by owasp.Encode
         </li>
-        <li>XSS in <a href="/app/tag-escape?input=<script>alert(1)</script>">HTML tag content</a> auto-escaped by
+        <li>Non-exploitable XSS in <a href="/app/tag-escape?input=<script>alert(1)</script>">HTML tag content</a> auto-escaped by
             Freemarker template
         </li>
     </ul>
